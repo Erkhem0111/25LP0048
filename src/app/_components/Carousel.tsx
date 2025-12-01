@@ -21,11 +21,11 @@ export const CarouselDemo = () => {
       className="object-cover mt-5"
     >
       <CarouselContent>
-        <CarouselItem className="relatives">
+        <CarouselItem className="relative">
           <Card className="py-0 rounded-none">
             <CardContent className="p-0">
               <img
-                className="w-full aspect-5/2  object-center relative"
+                className="w-full aspect-5/2  object-center"
                 src="/Wicked.jpg"
               />
               <Introducton

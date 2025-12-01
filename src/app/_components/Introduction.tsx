@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Play, Star } from "lucide-react";
-import { CarouselDemo } from "./Carousel";
 import { BenefitProps } from "../_type/BenefitProps";
 
 export const Introducton = (props: BenefitProps) => {

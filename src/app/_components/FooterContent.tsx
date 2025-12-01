@@ -6,9 +6,7 @@ export const FooterContent = () => {
     <div className="w-full h-[280px] bg-[#4338CA]">
       <div className="flex justify-between px-20 py-10 text-[14px] leading-5 text-[#FAFAFA] font-normal font-sans">
         <div>
-          <p className="">
-            <Logo />
-          </p>
+          <Logo />
           <p className="pt-3">© 2024 Movie Z. All Rights Reserved.</p>
         </div>
         <div className="flex gap-24">

@@ -37,11 +37,13 @@ import {
 import { ModeToggle } from "./_components/ModeToggle";
 import { CarouselDemo } from "./_components/Carousel";
 import { Introducton } from "./_components/Introduction";
-import { MovieList } from "./_components/Movielist";
+import { MovieCard } from "./_components/MovieCard";
 import { Item } from "@radix-ui/react-navigation-menu";
 import { Header } from "./_components/Header";
 import { Logo } from "./_components/Logo";
 import { FooterContent } from "./_components/FooterContent";
+import { MovieSection } from "./_components/MovieSection";
+import { DiagnosticCategory } from "typescript";
 
 export default function Home() {
   return (
@@ -61,7 +63,9 @@ export default function Home() {
       <div className="w-screen h-[600px]">
         <CarouselDemo />
       </div>
-      <MovieList />
+      <MovieSection category="upcoming" />
+      <MovieSection category="popular" />
+      <MovieSection category="top_rated" />
       <FooterContent />
     </>
   );
