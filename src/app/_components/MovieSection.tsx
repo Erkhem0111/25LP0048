@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MovieProps } from "../_type/MovieSectionProps";
 import { MovieCard } from "./MovieCard";
-import { ArrowBigLeft, ArrowDownLeftIcon, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 type MovieSectionProps = {
   category: string;
@@ -28,7 +28,7 @@ export const MovieSection = ({ category }: MovieSectionProps) => {
     fetchMovies();
   }, [category]);
   return (
-    <div className="w-full gap-8 flex flex-col items-center">
+    <div className="w-full gap-15 flex flex-col items-center">
       <div className="w-full flex justify-center gap-275 items-center">
         <h2 className="text-2xl font-bold capitalize">
           {category.replace("_", " ")}
