@@ -28,15 +28,15 @@ export const MovieSection = ({ category }: MovieSectionProps) => {
     fetchMovies();
   }, [category]);
   return (
-    <div className="w-full gap-15 flex flex-col items-center">
-      <div className="w-full flex justify-center gap-275 items-center">
-        <h2 className="text-2xl font-bold capitalize">
+    <div className="w-full flex flex-col items-center px-20 pb-8">
+      <div className="w-full flex justify-between items-center mt-10 mb-5">
+        <h2 className="text-4xl font-bold capitalize">
           {category.replace("_", " ")}
         </h2>
         <div className="flex gap-1 items-center cursor-pointer">
           <Link
             href={`/category/${category}`}
-            className="text-[#09090B] hover:underline"
+            className="text-[#09090B] hover:underline text-xl"
           >
             See More
           </Link>

@@ -14,7 +14,7 @@ import { BenefitProps } from "../_type/BenefitProps";
 export const Introducton = (props: BenefitProps) => {
   return (
     <>
-      <Card className="w-[460px] h-fit border:none bg-transparent absolute top-80 left-45 z-10">
+      <Card className="w-[460px] h-fit border:none bg-transparent absolute bottom-10 left-45 z-10">
         <CardHeader>
           <CardTitle>
             <h1 className="text-[22px] leading-6 text-[#FFFFFF] font-normal font-sans">
@@ -24,7 +24,7 @@ export const Introducton = (props: BenefitProps) => {
               {props.moviename}
             </h2>
             <div className="flex pt-6 items-center gap-2">
-              <Star className="w-7 h-7 text-[#FDE047]" />
+              <Star className="w-7 h-7 text-[#FDE047] fill-[#FDE047]" />
               <h3 className="text-[22px] leading-7 text-[#FFFFFF] font-semibold font-sans">
                 {props.rating}
               </h3>

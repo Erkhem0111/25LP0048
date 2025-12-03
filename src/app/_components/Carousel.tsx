@@ -36,11 +36,10 @@ export const CarouselDemo = () => {
       plugins={[plugin.current]}
       onMouseEnter={() => plugin.current.stop()}
       onMouseLeave={() => plugin.current.reset()}
-      className="object-cover mt-5"
     >
       <CarouselContent>
         {movies.map((movie, index) => (
-          <CarouselItem key={index} className="relative z-10s">
+          <CarouselItem key={index} className="relative h-full">
             <Card className="py-0 rounded-none">
               <CardContent className="p-0">
                 <img
