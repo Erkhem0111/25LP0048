@@ -51,7 +51,7 @@ export const CarouselDemo = () => {
                 <Introducton
                   name="Now Playing:"
                   moviename={movie.title}
-                  rating={movie.vote_average}
+                  rating={movie?.vote_average}
                   description={movie.overview}
                   btn="Watch Trailer"
                 />

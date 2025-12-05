@@ -23,7 +23,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
             </p>
           </div>
           <p className="text-[20px] leading-7 font-normal">
-            {movie.original_title}
+            {movie.title || movie.original_title}
           </p>
         </div>
       </div>

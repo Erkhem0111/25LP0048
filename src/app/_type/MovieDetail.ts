@@ -7,9 +7,7 @@ export interface MovieDetail {
   date: string;
   overview: string;
   date_of_birth: string;
-  biography: string;
   profile_path: string;
-  timezone: string;
   birthday: string;
   release_date: string;
   runtime: number;
@@ -23,6 +21,7 @@ export interface MovieDetail {
   image: string;
   genres: { name: string }[];
   director: string;
-  Writer: string;
-  Stars: string;
+  cast: { name: string }[];
+  crew: { name: string }[];
+  movie: string;
 }

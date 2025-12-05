@@ -1,9 +1,11 @@
 "use client";
-
+import { MovieCard } from "@/app/_components/MovieCard";
+import { SimilarMovies } from "@/app/_components/SimilarMovies";
 import { MovieDetail } from "@/app/_type/MovieDetail";
+import { MovieProps } from "@/app/_type/MovieSectionProps";
 import { getData } from "@/app/_utils/getData";
 import { Badge } from "@/components/ui/badge";
-import { Fullscreen, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
@@ -15,10 +17,10 @@ const MovieDetailPage = ({
   const { movieId } = use(params);
   const [movie, setMovies] = useState<MovieDetail>();
   const [video, setVideo] = useState<string>("");
-  const [genre, setGenres] = useState<string>("");
+  const [movieData, setMovieData] = useState<MovieDetail>();
+  const [similar, setSimilar] = useState<MovieProps[]>([]);
   useEffect(() => {
     const fetchData = async () => {
-      const Data = await fetch(`/movie/${movieId}?language=en-US`);
       const data = await getData(`/movie/${movieId}?language=en-US`);
 
       const videoData = await getData(
@@ -28,11 +30,18 @@ const MovieDetailPage = ({
       const trailer = videoData.results.find(
         (item: any) => item.type === "Trailer"
       );
-
-      const genre = await fetch(`/genre/movie/list?language=en`);
+      const movieData = await getData(
+        `/movie/${movieId}/credits?language=en-US`
+      );
+      const similar = await getData(
+        `/movie/${movieId}/similar?language=en-US&page=1`
+      );
+      console.log(similar);
 
       setMovies(data);
       setVideo(trailer?.key);
+      setMovieData(movieData);
+      setSimilar(similar?.results?.slice(0, 5));
     };
 
     fetchData();
@@ -85,8 +94,47 @@ const MovieDetailPage = ({
             </Badge>
           ))}
         </div>
-        <div className="text-[18px] leading-6 text-[#09090B] font-normal font-sans mt-5">
+        <div className="text-[18px] leading-6 text-[#09090B] font-normal font-sans pt-5">
           {movie?.overview}
+        </div>
+        <div className="flex gap-14 items-center border-b-2 border-[#E4E4E7] w-full mt-5 pb-2">
+          <p className="text-[20px] leading-7 text-[#09090B] font-bold font-sans">
+            Directors:
+          </p>
+          <p className="text-[18px] leading-6 text-[#09090B] font-normal font-sans">
+            {movieData?.cast
+              ?.slice(0, 3)
+              .map((movieData) => movieData.name)
+              .join(" | ")}
+          </p>
+        </div>
+        <div className="flex gap-14 items-center border-b-2 border-[#E4E4E7] w-full mt-5 pb-2">
+          <p className="text-[20px] leading-7 text-[#09090B] font-bold font-sans">
+            Writers:
+          </p>
+          <p className="text-[18px] leading-6 text-[#09090B] font-normal font-sans">
+            {movieData?.cast
+              ?.slice(0, 3)
+              .map((movieData) => movieData.name)
+              .join(" | ")}
+          </p>
+        </div>
+        <div className="flex gap-14 items-center border-b-2 border-[#E4E4E7] w-full mt-5 pb-2">
+          <p className="text-[20px] leading-7 text-[#09090B] font-bold font-sans">
+            Stars:
+          </p>
+          <p className="text-[18px] leading-6 text-[#09090B] font-normal font-sans">
+            {movieData?.cast
+              ?.slice(0, 3)
+              .map((movieData) => movieData.name)
+              .join(" | ")}
+          </p>
+        </div>
+      </div>
+      <div className="mb-28">
+        <SimilarMovies category="More like this" />
+        <div className="grid grid-cols-5 gap-8">
+          <MovieCard />
         </div>
       </div>
     </div>
