@@ -1,11 +1,13 @@
 "use client";
 import { MovieCard } from "@/app/_components/MovieCard";
-import { SimilarMovies } from "@/app/_components/SimilarMovies";
+import { SimilarMovie } from "@/app/_components/SimilarMovies";
 import { MovieDetail } from "@/app/_type/MovieDetail";
 import { MovieProps } from "@/app/_type/MovieSectionProps";
 import { getData } from "@/app/_utils/getData";
+import SimilarMovies from "@/app/similar/[similarMovie]/page";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
+import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
@@ -132,9 +134,11 @@ const MovieDetailPage = ({
         </div>
       </div>
       <div className="mb-28">
-        <SimilarMovies category="More like this" />
+        <SimilarMovie category="" />
         <div className="grid grid-cols-5 gap-8">
-          <MovieCard />
+          {similar.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
         </div>
       </div>
     </div>

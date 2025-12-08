@@ -1,5 +1,6 @@
-export interface MovieDetail {
+export type MovieDetail = {
   id: number;
+  adult: boolean;
   original_title: string;
   title: string;
   poster_path: string;
@@ -24,4 +25,4 @@ export interface MovieDetail {
   cast: { name: string }[];
   crew: { name: string }[];
   movie: string;
-}
+};
