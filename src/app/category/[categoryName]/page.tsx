@@ -3,18 +3,26 @@ import { MovieDetail } from "@/app/_type/MovieDetail";
 import { Star } from "lucide-react";
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from "@/components/ui/pagination";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const CategorySectionDetail = ({
+const CategoryPage = ({
   params,
 }: {
   params: Promise<{ categoryName: string }>;
 }) => {
   const { categoryName } = use(params);
   const [movies, setMovies] = useState<MovieDetail[]>([]);
+  const [currentPage, setcurrentPage] = useState(1);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${categoryName}?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/${categoryName}?language=en-US&page=${currentPage}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -28,7 +36,13 @@ const CategorySectionDetail = ({
       setMovies(data.results);
     };
     fetchData();
-  }, []);
+  }, [categoryName, currentPage]);
+  const nextPage = () => {
+    setcurrentPage((prev) => prev + 1);
+  };
+  const prevPage = () => {
+    setcurrentPage((prev) => prev - 1);
+  };
   return (
     <div className="px-20 pb-8">
       <div className="w-full flex mb-8 mt-13">
@@ -57,7 +71,26 @@ const CategorySectionDetail = ({
           </Link>
         ))}
       </div>
+      <div className="flex justify-end">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <Button onClick={prevPage} disabled={currentPage === 1}>
+                <ChevronLeft /> Previous
+              </Button>
+            </PaginationItem>
+            <PaginationItem>
+              <Button>{currentPage}</Button>
+            </PaginationItem>
+            <PaginationItem>
+              <Button onClick={nextPage}>
+                Next <ChevronRight />
+              </Button>
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
     </div>
   );
 };
-export default CategorySectionDetail;
+export default CategoryPage;

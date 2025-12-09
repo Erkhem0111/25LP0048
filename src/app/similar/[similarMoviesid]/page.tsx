@@ -1,20 +1,19 @@
 "use client";
-import { SimilarMovie } from "@/app/_components/SimilarMovies";
 import { MovieDetail } from "@/app/_type/MovieDetail";
 import { Star } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const SimilarMovies = () => {
-  const { category } = useParams();
+const SimilarMoviesPage = () => {
+  const { similarMoviesid } = useParams();
   const [movies, setMovies] = useState<MovieDetail[]>([]);
 
   useEffect(() => {
-    if (!category) return;
+    if (!similarMoviesid) return;
     const fetchData = async () => {
       const res = await fetch(
-        `/movie/${category}/similar?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/${similarMoviesid}/similar?language=en-US&page=1`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -23,16 +22,16 @@ const SimilarMovies = () => {
         }
       );
       const data = await res.json();
-      console.log(data);
+      console.log(similarMoviesid);
 
       setMovies(data.results);
     };
     fetchData();
-  }, [category]);
+  }, [similarMoviesid]);
   return (
     <div className="px-20 pb-8">
       <div className="w-full flex mb-8 mt-13">
-        <p className="text-4xl font-bold capitalize">{category}</p>
+        <p className="text-4xl font-bold capitalize">More like this</p>
       </div>
       <div className="grid grid-cols-5 gap-8">
         {movies?.map((movie) => (
@@ -60,4 +59,4 @@ const SimilarMovies = () => {
     </div>
   );
 };
-export default SimilarMovies;
+export default SimilarMoviesPage;
