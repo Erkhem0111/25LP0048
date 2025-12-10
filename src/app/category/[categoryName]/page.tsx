@@ -10,6 +10,14 @@ import {
   PaginationItem,
 } from "@/components/ui/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const CategoryPage = ({
   params,
@@ -19,6 +27,7 @@ const CategoryPage = ({
   const { categoryName } = use(params);
   const [movies, setMovies] = useState<MovieDetail[]>([]);
   const [currentPage, setcurrentPage] = useState(1);
+  const [totalPage, settotalPage] = useState(1);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
@@ -34,6 +43,7 @@ const CategoryPage = ({
       console.log(data);
 
       setMovies(data.results);
+      settotalPage(data.total_pages);
     };
     fetchData();
   }, [categoryName, currentPage]);
@@ -43,15 +53,18 @@ const CategoryPage = ({
   const prevPage = () => {
     setcurrentPage((prev) => prev - 1);
   };
+  const jumpPage = () => {
+    setcurrentPage((prev) => prev + 4);
+  };
   return (
     <div className="px-20 pb-8">
       <div className="w-full flex mb-8 mt-13">
         <p className="text-4xl font-bold capitalize">{categoryName}</p>
       </div>
       <div className="grid grid-cols-5 gap-8">
-        {movies.map((movie) => (
+        {movies?.map((movie) => (
           <Link rel="preload" href={`/movie/${movie.id}`}>
-            <div className="w-full aspect-2/3 cursor-pointer">
+            <div key={movie.id} className="w-full aspect-2/3 cursor-pointer">
               <img
                 className="rounded-t-2xl"
                 src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
@@ -71,19 +84,46 @@ const CategoryPage = ({
           </Link>
         ))}
       </div>
-      <div className="flex justify-end">
-        <Pagination>
+      <div className="mt-8">
+        <Pagination className="flex justify-end">
           <PaginationContent>
             <PaginationItem>
-              <Button onClick={prevPage} disabled={currentPage === 1}>
+              <Button
+                variant="ghost"
+                onClick={prevPage}
+                disabled={currentPage === 1}
+              >
                 <ChevronLeft /> Previous
               </Button>
             </PaginationItem>
             <PaginationItem>
-              <Button>{currentPage}</Button>
+              <Button variant="outline">{currentPage}</Button>
             </PaginationItem>
             <PaginationItem>
-              <Button onClick={nextPage}>
+              <Button
+                variant="ghost"
+                onClick={nextPage}
+                disabled={currentPage > totalPage - 2}
+              >
+                {currentPage}
+              </Button>
+            </PaginationItem>
+            <div>...</div>
+            <PaginationItem>
+              <Button
+                variant="ghost"
+                onClick={jumpPage}
+                disabled={currentPage > totalPage ? totalPage : void}
+              >
+                {currentPage}
+              </Button>
+            </PaginationItem>
+            <PaginationItem>
+              <Button
+                variant="ghost"
+                onClick={nextPage}
+                disabled={currentPage > totalPage - 1}
+              >
                 Next <ChevronRight />
               </Button>
             </PaginationItem>
